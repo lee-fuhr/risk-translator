@@ -85,11 +85,13 @@ export default function Home() {
             <div>
               <p className="text-label mb-4">RISK TRANSLATOR</p>
               <h1 className="text-display text-[clamp(2.25rem,6vw,5rem)] mb-6">
-                Stop losing
+                Engineers love
                 <br />
-                to <span className="text-[var(--accent)]">&ldquo;cheaper&rdquo;</span>
+                your specs.
                 <br />
-                competitors
+                <span className="text-[var(--accent)]">Purchasing</span>
+                <br />
+                kills the deal.
               </h1>
               <p className="text-body text-xl md:text-2xl max-w-xl mb-6">
                 Your specs are technically superior. But purchasing sees &ldquo;expensive.&rdquo; I translate your specifications into risk language — the cost-of-failure math that <strong>gets budgets approved.</strong>
@@ -269,7 +271,7 @@ export default function Home() {
             </svg>
           </p>
           <h2 className="text-section text-4xl md:text-5xl mb-6 text-center">
-            Top specs free. <span className="text-[var(--muted-foreground)]">Full translation $300.</span>
+            Top specs free. <span className="text-[var(--muted-foreground)]">Full translation $97.</span>
           </h2>
           <p className="text-body text-lg text-[var(--muted-foreground)] text-center mb-16 max-w-2xl mx-auto">
             The free preview gives you enough to test in your next meeting. The full translation is what sales engineers pay consultants $5,000+ to create.
@@ -316,7 +318,7 @@ export default function Home() {
                 COMPLETE
               </div>
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-[var(--accent)] text-[var(--accent-foreground)] px-3 py-1 text-sm font-bold">$300</span>
+                <span className="bg-[var(--accent)] text-[var(--accent-foreground)] px-3 py-1 text-sm font-bold">$97</span>
                 <span className="text-section text-xl">Full translation</span>
               </div>
               <p className="text-body text-sm text-[var(--muted-foreground)] mb-6">Close one deal at full price = pays for itself 10×</p>
@@ -350,7 +352,7 @@ export default function Home() {
       {/* What you get */}
       <section className="px-4 md:px-8 lg:px-12 py-20 md:py-28">
         <div className="max-w-6xl mx-auto">
-          <p className="text-label mb-4">WHAT YOU GET FOR $300</p>
+          <p className="text-label mb-4">WHAT YOU GET FOR $97</p>
           <h2 className="text-section text-4xl md:text-5xl lg:text-6xl mb-12">
             Specs that win budgets.
             <br />
