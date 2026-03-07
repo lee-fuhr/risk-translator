@@ -6,7 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { Resend } from 'resend';
-import { kv } from '@/app/lib/kv';
+import { getKv } from '@/app/lib/kv';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     if (customerEmail && analysisId) {
       // Mark as paid in KV so results page unlocks
-      await kv.set(`rt:paid:${analysisId}`, '1', { ex: 60 * 60 * 24 * 30 });
+      await getKv().set(`rt:paid:${analysisId}`, '1', { ex: 60 * 60 * 24 * 30 });
 
       try {
         const toolUrls: Record<string, string> = {

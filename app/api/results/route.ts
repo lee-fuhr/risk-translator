@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { kv } from '@/app/lib/kv'
+import { getKv } from '@/app/lib/kv'
 
 interface AnalysisResult {
   status: string
@@ -17,8 +17,8 @@ export async function GET(request: NextRequest) {
   }
 
   const [analysis, paidFlag] = await Promise.all([
-    kv.get<AnalysisResult>(`rt:analysis:${id}`),
-    kv.get(`rt:paid:${id}`),
+    getKv().get<AnalysisResult>(`rt:analysis:${id}`),
+    getKv().get(`rt:paid:${id}`),
   ])
 
   if (!analysis || analysis.status !== 'complete') {

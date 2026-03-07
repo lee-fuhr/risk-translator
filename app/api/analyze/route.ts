@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { kv } from '@/app/lib/kv'
+import { getKv } from '@/app/lib/kv'
 import Anthropic from '@anthropic-ai/sdk'
 
 export const maxDuration = 60
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
+function getClient() { return new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! }) }
 
 interface RiskGap {
   spec: string
@@ -37,13 +37,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Return cached result if already analyzed
-    const cached = await kv.get<AnalysisResult>(`rt:analysis:${id}`)
+    const cached = await getKv().get<AnalysisResult>(`rt:analysis:${id}`)
     if (cached?.status === 'complete') {
       return NextResponse.json(cached)
     }
 
     // Fetch specs
-    const specData = await kv.get<{ specs: string }>(`rt:spec:${id}`)
+    const specData = await getKv().get<{ specs: string }>(`rt:spec:${id}`)
     if (!specData) {
       return NextResponse.json({ error: 'Specs not found — session may have expired' }, { status: 404 })
     }
@@ -88,7 +88,7 @@ Guidelines:
 - Keep each field concise but data-rich
 - The "full" translation should be something a sales engineer can paste into a proposal`
 
-    const response = await client.messages.create({
+    const response = await getClient().messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 4096,
       messages: [{ role: 'user', content: prompt }],
@@ -113,7 +113,7 @@ Guidelines:
       analyzedAt: Date.now(),
     }
 
-    await kv.set(`rt:analysis:${id}`, result, { ex: 60 * 60 * 24 * 30 })
+    await getKv().set(`rt:analysis:${id}`, result, { ex: 60 * 60 * 24 * 30 })
 
     return NextResponse.json(result)
   } catch (err) {
