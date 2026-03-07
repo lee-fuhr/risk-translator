@@ -110,7 +110,7 @@ Currently uses hardcoded analysis for demo. For each spec, provides:
 
 ### Quick Start
 ```bash
-cd "/Users/lee/Library/CloudStorage/GoogleDrive-hi@leefuhr.com/My Drive/ general/CC/LFI/_ Inbox/clone-test-build/risk-translator"
+cd "/Users/lee/CC/LFI/_ Inbox/clone-test-build/risk-translator"
 npm run dev
 ```
 

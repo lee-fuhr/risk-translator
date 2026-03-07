@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { Resend } from 'resend';
+import { kv } from '@vercel/kv';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -39,6 +40,9 @@ export async function POST(request: NextRequest) {
     const amountPaid = (session.amount_total || 0) / 100;
 
     if (customerEmail && analysisId) {
+      // Mark as paid in KV so results page unlocks
+      await kv.set(`rt:paid:${analysisId}`, '1', { ex: 60 * 60 * 24 * 30 });
+
       try {
         const toolUrls: Record<string, string> = {
           'Website Messaging Audit': 'https://websiteaudit.leefuhr.com',

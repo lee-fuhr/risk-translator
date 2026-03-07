@@ -1,6 +1,6 @@
 /**
  * Stripe Checkout API Route
- * Risk Translator - $150
+ * Risk Translator - $97
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -9,7 +9,7 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const TOOL_NAME = 'Risk Translator';
-const TOOL_PRICE = 150;
+const TOOL_PRICE = 97;
 
 export async function POST(request: NextRequest) {
   try {

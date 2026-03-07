@@ -16,20 +16,26 @@ export default function Home() {
 
     setIsUploading(true);
 
-    // Generate a simple ID
-    const id = Date.now().toString();
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ specs }),
+      });
 
-    // Store specs in localStorage for demo
-    localStorage.setItem(`spec-${id}`, specs);
+      if (!res.ok) throw new Error('Failed to submit specs');
 
-    // Simulate upload delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+      const { id } = await res.json();
 
-    if (typeof window !== 'undefined' && window.plausible) {
-      window.plausible('Specs Submitted')
+      if (typeof window !== 'undefined' && window.plausible) {
+        window.plausible('Specs Submitted');
+      }
+
+      router.push(`/processing?id=${id}`);
+    } catch {
+      setIsUploading(false);
+      alert('Something went wrong. Please try again.');
     }
-    // Navigate to processing
-    router.push(`/processing?id=${id}`);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -502,7 +508,7 @@ export default function Home() {
             Stop losing to &quot;cheaper&quot; competitors
           </h2>
           <p className="text-[var(--accent-foreground)] text-xl mb-8">
-            Paste your specs. Top 3 translations free. Full spec sheet $300.
+            Paste your specs. Top 3 risk translations free. Full spec sheet $97.
           </p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
