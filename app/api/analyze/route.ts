@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { kv } from '@vercel/kv'
+import { kv } from '@/app/lib/kv'
 import Anthropic from '@anthropic-ai/sdk'
 
 export const maxDuration = 60
